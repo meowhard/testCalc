@@ -4,6 +4,7 @@ public class Main {
     }
 }
 class Human{
+    double rCredit;
     double credit;
     double payment;
     double percent;
@@ -11,13 +12,17 @@ class Human{
 
     void abc () {
         while(credit > payment){
+            credit = credit * (percent / 100 + 1);
             int count = 1;
-            while(credit > payment || count < 12) {
+            while(credit > payment || count <= 12) {
                 credit = credit - payment;
                 totalPayment = totalPayment + payment;
                 count++;
             }
         }
+        totalPayment = totalPayment + credit - rCredit;
+        System.out.println(rCredit);
+
     }
 
 }
