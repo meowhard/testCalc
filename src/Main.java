@@ -88,4 +88,18 @@ class Calc{
         result = Math.ceil(totalPayment);
         System.out.println(result);
     }
+
+    public void humanTest() {
+        int count = 0;
+        newCredit = newCredit * (percent / 100 + 1);
+        while (totalPayment < credit){
+            totalPayment = totalPayment + payment;
+            count++;
+            if (count > 12){
+                newCredit = newCredit * (percent / 100 + 1);
+                count = 0;
+            }
+        }
+        totalPayment = totalPayment + newCredit
+    }
 }
