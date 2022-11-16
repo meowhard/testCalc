@@ -5,10 +5,13 @@ public class Main {
 //        human.abc();
 //        calc.human();
 //        calc.business();
+//        calc.humanTest();
+        calc.businessTest();
+//        calc.hueta();
     }
 }
 class Calc{
-    private double credit = 300000.0;
+    private double credit = 200000.0;
     private double payment = 10000.0;
     private double percent = 10.0;
     private double newCredit = credit;
@@ -27,10 +30,11 @@ class Calc{
             }
             if (count > 11) {
                 newCredit = (newCredit - totalPayment) * (percent / 100 + 1) + totalPayment;
-                System.out.println(newCredit);
                 count = 0;
+
             }
         }
+        System.out.println(newCredit);
     }
 
     public void human(){
@@ -92,14 +96,35 @@ class Calc{
     public void humanTest() {
         int count = 0;
         newCredit = newCredit * (percent / 100 + 1);
-        while (totalPayment < credit){
+        while (totalPayment < newCredit){
             totalPayment = totalPayment + payment;
             count++;
-            if (count > 12){
-                newCredit = newCredit * (percent / 100 + 1);
+            if (totalPayment > newCredit){
+                totalPayment = newCredit;
+            }
+            if (count > 11){
+                newCredit = (newCredit - totalPayment) * (percent / 100 + 1) + totalPayment;
                 count = 0;
             }
         }
-        totalPayment = totalPayment + newCredit
+        result = Math.round(newCredit - credit);
+        System.out.println(result);
+    }
+
+    public void businessTest() {
+        int count = 0;
+        while (totalPayment < newCredit){
+            totalPayment = totalPayment + payment;
+            count++;
+            if (totalPayment > newCredit){
+                totalPayment = newCredit;
+            }
+            if (count > 11){
+                newCredit = (newCredit - totalPayment) * (percent / 100 + 1) + totalPayment;
+                count = 0;
+            }
+        }
+        result = Math.round(newCredit - credit);
+        System.out.println(result);
     }
 }
