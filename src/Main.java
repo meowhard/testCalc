@@ -1,36 +1,43 @@
-import org.w3c.dom.ls.LSOutput;
-
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args){
-        Calc calc = new Calc();
+
+        Scanner input = new Scanner(System.in);
+        String inputText = input.nextLine();
+        String[] inputArray = inputText.split(" ");
+
+        Calc calc = new Calc(inputArray);
         calc.getOverpayment();
     }
 }
 
 class Calc {
-    Scanner input = new Scanner(System.in);
-    String inputText = input.nextLine();
-    String[] inputArray = inputText.split(" ");
-    private double credit = Double.parseDouble(inputArray[0]);
-    private double payment = Double.parseDouble(inputArray[1]);
-    private double percent = Double.parseDouble(inputArray[2]);
-    private String person = inputArray[3];
-    private double newCredit = credit;
-    private double totalPayment = 0;
+
+    private double credit;
+    private double payment;
+    private double percent;
+    private String person;
+
+    public Calc(String[] inputArray){
+        this.credit = Double.parseDouble(inputArray[0]);
+        this.payment = Double.parseDouble(inputArray[1]);
+        this.percent = Double.parseDouble(inputArray[2]);
+        this.person = inputArray[3];
+    }
 
     public void getOverpayment(){
+        double newCredit = credit;
+        double totalPayment = 0;
         int count = 0;
 
-        switch (person){
-            case "human":
+        switch (Person.valueOf(person.toUpperCase())){
+            case HUMAN:
                 newCredit = newCredit * (percent / 100 + 1);
                 break;
-            case "business":
+            case BUSINESS:
                 break;
         }
-
 
         while (totalPayment < newCredit){
             totalPayment = totalPayment + payment;
@@ -47,3 +54,9 @@ class Calc {
         System.out.println(result);
     }
 }
+
+enum Person {
+    HUMAN,
+    BUSINESS;
+}
+
