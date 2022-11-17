@@ -9,7 +9,7 @@ public class Main {
     }
 }
 
-class Calc{
+class Calc {
     Scanner input = new Scanner(System.in);
     String inputText = input.nextLine();
     String[] inputArray = inputText.split(" ");
@@ -19,7 +19,6 @@ class Calc{
     private String person = inputArray[3];
     private double newCredit = credit;
     private double totalPayment = 0;
-    private double result;
 
     public void getOverpayment(){
         int count = 0;
@@ -44,7 +43,7 @@ class Calc{
                 count = 0;
             }
         }
-        result = Math.round(newCredit - credit);
+        double result = Math.round(newCredit - credit);
         System.out.println(result);
     }
 }
