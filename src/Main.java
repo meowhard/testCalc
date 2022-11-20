@@ -1,14 +1,20 @@
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args){
+    public static void main(String[] args) throws CalculatingException {
 
         Scanner input = new Scanner(System.in);
         String inputText = input.nextLine();
         String[] inputArray = inputText.split(" ");
 
         Calc calc = new Calc(inputArray);
+        try {
         calc.getOverpayment();
+        }
+        catch (CalculatingException e){
+            System.err.println(e);
+        }
     }
 }
 
@@ -26,10 +32,23 @@ class Calc {
         this.person = inputArray[3];
     }
 
-    public void getOverpayment(){
+    public void getOverpayment() throws CalculatingException {
         double newCredit = credit;
         double totalPayment = 0;
         int count = 0;
+
+        if (credit < 0){
+            throw new CalculatingException("credit value cannot be negative");
+        }
+        if (payment < 0){
+            throw new CalculatingException("payment value cannot be negative");
+        }
+        if (percent < 0){
+            throw new CalculatingException("payment value cannot be negative");
+        }
+        if ((((credit * percent) - (payment * 12) ) * (percent / 100 + 1))>((credit * percent))){
+            throw new CalculatingException("this loan cannot be repaid");
+        }
 
         switch (Person.valueOf(person.toUpperCase())){
             case HUMAN:
@@ -58,5 +77,11 @@ class Calc {
 enum Person {
     HUMAN,
     BUSINESS;
+}
+
+class CalculatingException extends Exception {
+    CalculatingException(String message){
+        super(message);
+    }
 }
 
