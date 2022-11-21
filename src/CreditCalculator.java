@@ -1,11 +1,11 @@
-public class Calc {
+public class CreditCalculator {
 
     private double credit;
     private double payment;
     private double percent;
     private String person;
 
-    public Calc(String[] inputArray) {
+    public CreditCalculator(String[] inputArray) {
         this.credit = Double.parseDouble(inputArray[0]);
         this.payment = Double.parseDouble(inputArray[1]);
         this.percent = Double.parseDouble(inputArray[2]);

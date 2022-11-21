@@ -7,7 +7,7 @@ public class Main {
         String inputText = input.nextLine();
         String[] inputArray = inputText.split(" ");
 
-        Calc calc = new Calc(inputArray);
+        CreditCalculator calc = new CreditCalculator(inputArray);
         try {
         calc.getOverpayment();
         }
