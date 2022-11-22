@@ -1,56 +1,45 @@
 public class CreditCalculator {
 
-    private double credit;
-    private double payment;
-    private double percent;
-    private String person;
+    public double getOverpayment(CreditData data) throws CalculatingException {
 
-    public CreditCalculator(String[] inputArray) {
-        this.credit = Double.parseDouble(inputArray[0]);
-        this.payment = Double.parseDouble(inputArray[1]);
-        this.percent = Double.parseDouble(inputArray[2]);
-        this.person = inputArray[3];
-    }
-
-    public void getOverpayment() throws CalculatingException {
-        double newCredit = credit;
+        double newCredit = data.getCredit();
         double totalPayment = 0;
-        double percentIndex = (percent / 100 + 1);
+        double index = (data.getPercent() / 100 + 1);
         int count = 0;
 
-        if (credit < 0) {
+        if (data.getCredit() < 0) {
             throw new CalculatingException("credit value cannot be negative");
         }
-        if (payment < 0) {
+        if (data.getPayment() < 0) {
             throw new CalculatingException("payment value cannot be negative");
         }
-        if (percent < 0) {
+        if (data.getPercent() < 0) {
             throw new CalculatingException("payment value cannot be negative");
         }
-        if ((((credit * percentIndex) - (payment * 12)) * percentIndex) > ((credit * percentIndex))) {
+        if ((((data.getCredit() * index) - (data.getPayment() * 12)) * index) > ((data.getCredit() * index))) {
             throw new CalculatingException("this loan cannot be repaid");
         }
 
-        switch (Person.valueOf(person.toUpperCase())) {
+        switch (Person.valueOf(data.getPerson().toUpperCase())) {
             case HUMAN:
-                newCredit = newCredit * percentIndex;
+                newCredit = newCredit * index;
                 break;
             case BUSINESS:
                 break;
         }
 
         while (totalPayment < newCredit) {
-            totalPayment = totalPayment + payment;
+            totalPayment = totalPayment + data.getPayment();
             count++;
             if (totalPayment > newCredit) {
                 totalPayment = newCredit;
             }
             if (count > 11) {
-                newCredit = (newCredit - totalPayment) * percentIndex + totalPayment;
+                newCredit = (newCredit - totalPayment) * index + totalPayment;
                 count = 0;
             }
         }
-        double result = Math.round(newCredit - credit);
-        System.out.println(result);
+        double result = Math.round(newCredit - data.getCredit());
+        return result;
     }
 }
